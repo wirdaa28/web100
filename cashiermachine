@@ -1,0 +1,704 @@
+import java.awt.*;
+
+import java.awt.event.*;
+
+import java.util.*;
+
+import javax.swing.*;
+
+
+
+public class LoginPage implements ActionListener{
+
+	
+
+	JFrame frame = new JFrame("Dominos Login Page");
+
+	JButton loginButton = new JButton("Login");
+
+	JButton resetButton = new JButton("Reset");
+
+	JTextField userIDField = new JTextField();
+
+	JPasswordField userPasswordField = new JPasswordField();
+
+	JLabel userIDLabel = new JLabel("userID:");
+
+	JLabel userPasswordLabel = new JLabel("password:");
+
+	JLabel messageLabel = new JLabel();
+
+	HashMap<String,String> logininfo = new HashMap<String,String>();
+
+	
+
+	LoginPage(HashMap<String,String> loginInfoOriginal){
+
+		
+
+		logininfo = loginInfoOriginal;
+
+		
+
+		userIDLabel.setBounds(50,100,75,25);
+
+		userPasswordLabel.setBounds(50,150,75,25);
+
+		
+
+		messageLabel.setBounds(125,250,250,35);
+
+		messageLabel.setFont(new Font(null,Font.ITALIC,25));
+
+		
+
+		userIDField.setBounds(125,100,200,25);
+
+		userPasswordField.setBounds(125,150,200,25);
+
+		
+
+		loginButton.setBounds(125,200,100,25);
+
+		loginButton.setFocusable(false);
+
+		loginButton.addActionListener(this);
+
+		
+
+		resetButton.setBounds(225,200,100,25);
+
+		resetButton.setFocusable(false);
+
+		resetButton.addActionListener(this);
+
+		
+
+		frame.add(userIDLabel);
+
+		frame.add(userPasswordLabel);
+
+		frame.add(messageLabel);
+
+		frame.add(userIDField);
+
+		frame.add(userPasswordField);
+
+		frame.add(loginButton);
+
+		frame.add(resetButton);
+
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		frame.setSize(420,420);
+
+		frame.setLayout(null);
+
+		frame.setVisible(true);
+
+		
+
+	}
+
+
+
+	@Override
+
+	public void actionPerformed(ActionEvent e) {
+
+		
+
+		if(e.getSource()==resetButton) {
+
+			userIDField.setText("");
+
+			userPasswordField.setText("");
+
+		}
+
+		
+
+		if(e.getSource()==loginButton) {
+
+			
+
+			String userID = userIDField.getText();
+
+			String password = String.valueOf(userPasswordField.getPassword());
+
+			
+
+			if(logininfo.containsKey(userID)) {
+
+				if(logininfo.get(userID).equals(password)) {
+
+					messageLabel.setForeground(Color.green);
+
+					messageLabel.setText("Login successful");
+
+					frame.dispose();
+
+					WelcomePage welcomePage = new WelcomePage(userID);
+
+				}
+
+				else {
+
+					messageLabel.setForeground(Color.red);
+
+					messageLabel.setText("Wrong password");
+
+				}
+
+
+
+			}
+
+			else {
+
+				messageLabel.setForeground(Color.red);
+
+				messageLabel.setText("username not found");
+
+			}
+
+		}
+
+	}	
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class WelcomePage
+
+import java.awt.*;
+import javax.swing.*;
+
+
+
+public class WelcomePage 
+{
+	
+	JFrame frame = new JFrame("Dominos Welcome Page");
+
+	JLabel welcomeLabel = new JLabel("Hello!");
+
+	
+
+	WelcomePage(String userID)
+	{
+
+		
+
+		welcomeLabel.setBounds(0,0,600,35);
+
+		welcomeLabel.setFont(new Font(null,Font.PLAIN,25));
+
+		welcomeLabel.setText("Hello "+userID +","+ "Welcome to Dominos Cashier System");
+
+		
+
+		frame.add(welcomeLabel);
+
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		frame.setSize(700,420);
+
+		frame.setLayout(null);
+
+		frame.setVisible(true);
+
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+cashier system and receipt
+
+package Casshier;
+import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder; 
+@SuppressWarnings("serial")
+public class TestDominos extends JFrame
+{
+	private JPanel contentPane;
+	private JComboBox cboFlavor;
+	private JRadioButton rdosmall;
+	private JRadioButton rdomedium;
+	private JRadioButton rdolarge;
+	private JCheckBox chkExtraCheese;
+	private JCheckBox chkExtraMeat;
+	private JCheckBox chkMushroom;
+	private JCheckBox chkBlackOlives;
+	private JCheckBox chkOnions;
+	private JCheckBox chkSausage;
+	private JRadioButton rdoDineIn;
+	private JRadioButton rdoTakeOut;
+	private JRadioButton rdoDelivery;
+	private JButton btnBillOut;
+	private JButton btnOrderAgain;
+	private JTextArea txaOrderDetails;
+	private String[] flavor = {"Pepperoni", "BBQ Chicken", "Hawaiian", "Vegetarian", "Bacon and Cheese"};
+	private JLabel lblSmallPrice;
+	private JLabel lblMediumPrice;
+	private JLabel lblLargePrice;
+	private double addOnPrice = 0.00;
+	private JLabel lblQuantity;
+	private int qty = 1;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private final ButtonGroup buttonGroup_1 = new ButtonGroup();
+	
+	public static void main(String[] args)
+	{
+		EventQueue.invokeLater(new Runnable()
+		{
+			public void run()
+			{
+				try
+				{
+					TestDominos frame = new TestDominos();
+					frame.setVisible(true);
+				}catch (Exception e)
+				{
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	public TestDominos()
+	{
+		addWindowListener(new WindowAdapter()
+				{
+			public void windowOpened(WindowEvent arg0)
+			{
+				loadFlavors();
+			}
+				});
+	}
+	{
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100,100,656,576);
+		setLocationRelativeTo(null);
+		contentPane = new JPanel();
+		contentPane.setBackground(Color.LIGHT_GRAY);
+		contentPane.setBorder(new EmptyBorder(5,5,5,5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Pizza Flavor:");
+		lblNewLabel.setBounds(10, 11, 203, 14);
+		contentPane.add(lblNewLabel);
+		
+		cboFlavor = new JComboBox();
+		cboFlavor.addActionListener(new ActionListener()
+				{
+			public void actionPerformed(ActionEvent arg0)
+			{
+				showPrice();
+			}
+				});
+		cboFlavor.setBackground(Color.WHITE);
+		cboFlavor.setBounds(10, 69, 221, 22);
+		contentPane.add(cboFlavor);
+		
+		JLabel sad = new JLabel("Size and Price");
+		sad.setBounds(10,69,203,14);
+		contentPane.add(sad);
+		
+		rdosmall = new JRadioButton("Small");
+		rdosmall.setBackground(Color.LIGHT_GRAY);
+		rdosmall.setBounds(20, 90, 109, 23);
+		contentPane.add(rdosmall);
+		
+		rdomedium = new JRadioButton("Medium");
+		rdomedium.setBackground(Color.LIGHT_GRAY);
+		rdomedium.setBounds(20,116,109,23);
+		contentPane.add(rdomedium);
+		
+		rdolarge = new JRadioButton("Large");
+		rdolarge.setBackground(Color.LIGHT_GRAY);
+		rdolarge.setBounds(20,140,109,23);
+		contentPane.add(rdolarge);
+		
+		JLabel lblAddOns = new JLabel("Add Ons:");
+		lblAddOns.setBounds(10, 170, 203, 14);
+		contentPane.add(lblAddOns);
+		
+		chkExtraCheese = new JCheckBox("Extra Cheese");
+		chkExtraCheese.setBackground(Color.LIGHT_GRAY);
+		chkExtraCheese.setBounds(20, 191, 109, 23);
+		contentPane.add(chkExtraCheese);
+		
+		chkExtraMeat = new JCheckBox("Extra Meat");
+		chkExtraMeat.setBackground(Color.LIGHT_GRAY);
+		chkExtraMeat.setBounds(20, 217, 109, 23);
+		contentPane.add(chkExtraMeat);
+		
+		chkMushroom = new JCheckBox("Mushroom");
+		chkMushroom.setBackground(Color.LIGHT_GRAY);
+		chkMushroom.setBounds(20, 243, 97, 23);
+		contentPane.add(chkMushroom);
+		
+		chkBlackOlives = new JCheckBox("Black Olives");
+		chkBlackOlives.setBackground(Color.LIGHT_GRAY);
+		chkBlackOlives.setBounds(144, 191, 97, 23);
+		contentPane.add(chkBlackOlives);
+		
+		chkOnions = new JCheckBox("Onions");
+		chkOnions.setBackground(Color.LIGHT_GRAY);
+		chkOnions.setBounds(144, 217, 97, 23);
+		contentPane.add(chkOnions);
+		
+		chkSausage = new JCheckBox("Sausage");
+		chkSausage.setBackground(Color.LIGHT_GRAY);
+		chkSausage.setBounds(144, 243, 97, 23);
+		contentPane.add(chkSausage);
+		
+		JLabel lblChoose = new JLabel("Choose:");
+		lblChoose.setBounds(10, 273, 203, 14);
+		contentPane.add(lblChoose);
+		
+		rdoDineIn = new JRadioButton("Dine In");
+		rdoDineIn.setBackground(Color.LIGHT_GRAY);
+		rdoDineIn.setBounds(20, 294, 109, 23);
+		contentPane.add(rdoDineIn);
+		
+		rdoTakeOut = new JRadioButton("Take Out");
+		rdoTakeOut.setBackground(Color.LIGHT_GRAY);
+		rdoTakeOut.setBounds(20, 320, 109, 23);
+		contentPane.add(rdoTakeOut);
+		
+		rdoDelivery = new JRadioButton("Delivery");
+		rdoDelivery.setBackground(Color.LIGHT_GRAY);
+		rdoDelivery.setBounds(20, 344, 109, 23);
+		contentPane.add(rdoDelivery);
+		
+		btnBillOut = new JButton("Bill Out");
+		btnBillOut.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent arg0)
+			{
+				showOrderDetails();
+			}
+		});
+		btnBillOut.setBackground(Color.LIGHT_GRAY);
+		btnBillOut.setBounds(68, 465, 97, 23);
+		contentPane.add(btnBillOut);
+		
+		JLabel sss = new JLabel("Quantity:");
+		sss.setBounds(10, 374, 203, 14);
+		contentPane.add(sss);
+		
+		JButton btnNewButton_1 = new JButton("-");
+		btnNewButton_1.addActionListener(new ActionListener()
+				{
+			public void actionPerformed(ActionEvent arg0)
+			{
+				
+				qty--;
+				lblQuantity.setText(String.valueOf(qty));
+			}
+				});
+		btnNewButton_1.setBackground(new Color(255, 99, 71));
+		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnNewButton_1.setBounds(26, 399, 53, 28);
+		contentPane.add(btnNewButton_1);
+		
+		JLabel lblNewLabel_1 = new JLabel("1");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1.setBounds(83, 399, 53, 28);
+		contentPane.add(lblNewLabel_1);
+		
+		lblQuantity = new JLabel("1");
+		lblQuantity.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblQuantity.setHorizontalAlignment(SwingConstants.CENTER);
+		lblQuantity.setBounds(83, 399, 53, 28);
+		contentPane.add(lblQuantity);
+		
+		
+		JButton button = new JButton("+");
+		button.addActionListener(new ActionListener()
+		{
+	public void actionPerformed(ActionEvent arg0)
+	{
+		
+		qty++;
+		lblQuantity.setText(String.valueOf(qty));
+	}
+		});
+		button.setBackground(new Color(0, 250, 154));
+		button.setFont(new Font("Tahoma", Font.BOLD, 20));
+		button.setBounds(139, 399, 53, 28);
+		contentPane.add(button);
+		
+		btnOrderAgain = new JButton("Order again");
+		btnOrderAgain.setBackground(Color.LIGHT_GRAY);
+		btnOrderAgain.setBounds(68, 499, 97, 23);
+		contentPane.add(btnOrderAgain);
+		
+		JLabel lblNewLable_2 = new JLabel("New label");
+		lblNewLable_2.setBounds(260, 11, 120, 79);
+		contentPane.add(lblNewLable_2);
+		
+		JLabel label_4 = new JLabel("New label");
+		label_4.setBounds(390, 11, 120, 79);
+		contentPane.add(label_4);
+		
+		JLabel label_5 = new JLabel("New label");
+		label_5.setBounds(518, 11, 120, 79);
+		contentPane.add(label_5);
+		
+		JLabel lblOrderDetails = new JLabel("Order Details:");
+		lblOrderDetails.setBounds(260, 94, 203, 14);
+		contentPane.add(lblOrderDetails);
+		
+		txaOrderDetails = new JTextArea();
+		txaOrderDetails.setBounds(260, 116, 378, 412);
+		contentPane.add(txaOrderDetails);
+		
+	}
+	private void loadFlavors()
+	{
+		for(String flavors : flavor)
+		{
+			cboFlavor.addItem(flavors);
+		}
+	}
+	private void showPrice()
+	{
+		if(cboFlavor.getSelectedIndex() == 0)
+		{
+			lblSmallPrice.setText("100.00");
+			lblMediumPrice.setText("120.00");
+			lblLargePrice.setText("140.00");
+		}
+		else if(cboFlavor.getSelectedIndex() == 1)
+		{
+			lblSmallPrice.setText("130.00");
+			lblMediumPrice.setText("150.00");
+			lblLargePrice.setText("170.00");
+		}
+		else if(cboFlavor.getSelectedIndex() == 2)
+		{
+			lblSmallPrice.setText("90.00");
+			lblMediumPrice.setText("110.00");
+			lblLargePrice.setText("140.00");
+		}
+		else if(cboFlavor.getSelectedIndex() == 3)
+		{
+			lblSmallPrice.setText("110.00");
+			lblMediumPrice.setText("130.00");
+			lblLargePrice.setText("150.00");
+		}
+		else
+		{
+			lblSmallPrice.setText("120.00");
+			lblMediumPrice.setText("140.00");
+			lblLargePrice.setText("160.00");
+		}
+	}
+	private String addOnPrice()
+	{
+		String addOns = "";
+		
+		if(chkExtraCheese.isSelected())
+		{
+			addOnPrice += 10.00;
+			addOns = addOns + "\n\t" + chkExtraCheese.getText() + "\t\t" + "10.00";
+		}
+		if(chkExtraMeat.isSelected())
+		{
+			addOnPrice += 15.00;
+			addOns = addOns + "\n\t" + chkExtraMeat.getText() + "\t\t" + "15.00";
+		}
+		if(chkMushroom.isSelected())
+		{
+			addOnPrice += 7.00;
+			addOns = addOns + "\n\t" + chkMushroom.getText() + "\t\t" + "7.00";
+		}
+		if(chkBlackOlives.isSelected())
+		{
+			addOnPrice += 8.00;
+			addOns = addOns + "\n\t" + chkBlackOlives.getText() + "\t\t" + "8.00";
+		}
+		if(chkOnions.isSelected())
+		{
+			addOnPrice += 5.00;
+			addOns = addOns + "\n\t" + chkOnions.getText() + "\t\t" + "5.00";
+		}
+		if(chkSausage.isSelected())
+		{
+			addOnPrice += 10.00;
+			addOns = addOns + "\n\t" + chkSausage.getText() + "\t\t" + "10.00";
+		}
+		return addOns;
+	}
+	private String sizeOfPizza()
+	{
+		String size = "";
+		if(rdosmall.isSelected())
+			size = rdosmall.getText();
+		else if(rdomedium.isSelected())
+			size = rdomedium.getText();
+		else
+			size = rdolarge.getText();
+		return size;
+	}
+	private double PriceOfPizza()
+	{
+		double pizzaPrice = 0;
+		if(rdosmall.isSelected())
+			pizzaPrice = Double.parseDouble(lblSmallPrice.getText());
+		else if(rdomedium.isSelected())
+			pizzaPrice = Double.parseDouble(lblMediumPrice.getText());
+		else
+			pizzaPrice = Double.parseDouble(lblLargePrice.getText());
+		
+		return pizzaPrice;
+	}
+	private String serviceMethod()
+	{
+		String service = "";
+		if(rdoDineIn.isSelected())
+			service = "DINE IN";
+		else if(rdoTakeOut.isSelected())
+			service = "TAKE OUT";
+		else
+			service = "FOR DELIVERY" + "\t\t" + "50.00";
+			
+		return service;
+	}
+	private double serviceFee()
+	{
+		double serviceFee = 0;
+		if(rdoDineIn.isSelected())
+			serviceFee = 0.00;
+		else if(rdoTakeOut.isSelected())
+			serviceFee = 0.00;
+		else
+			serviceFee = 50.00;
+		
+		return serviceFee;
+	}
+	private double subtotal() 
+	{
+		double subtotal = 0;
+		
+		subtotal = addOnPrice + PriceOfPizza() + serviceFee();
+		
+		return subtotal;
+	}
+	private void orderAgain()
+	{
+		txaOrderDetails.setText(null);
+		
+	}
+	private void showOrderDetails()
+	{
+		double totalPrice = 0;
+		int quantity = Integer.parseInt(lblQuantity.getText());
+		
+		totalPrice = subtotal() * quantity;
+		
+		txaOrderDetails.setText("\nFLAVOR:  \t" + cboFlavor.getSelectedItem() + "\n\nSIZE: \t" + sizeOfPizza() + "\n\nPRICE:  \t\t"
+				                + PriceOfPizza() + "\n\nADD ONS: \t" + addOnPrice() + "\n\nSERVICE:  \t" + serviceMethod()
+				                + "\n\nQUANTITY: \t\t\t" + "x" + quantity + 
+				                "\n\n*************"
+				                + "\n\nTOTAL PRICE: \t\t\t" + totalPrice);
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
